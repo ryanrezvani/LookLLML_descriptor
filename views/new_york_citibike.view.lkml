@@ -108,8 +108,22 @@ view: new_york_citibike {
     sql: ${bikeid}  ;;
   }
 
+  measure: unique_bikes_last_7_days {
+    type: count_distinct
+    sql: ${bikeid} ;;
+    filters: [starttime_date: "7 days",stoptime_date: "-NULL"]
+
+  }
+
   measure: custom_average_duration {
     type: average
     sql: ${tripduration}  ;;
   }
+
+  measure: duration_per_bike {
+    type: number
+    sql: ${custom_average_duration} / ${unique_bikes} ;;
+  }
+
+
 }
