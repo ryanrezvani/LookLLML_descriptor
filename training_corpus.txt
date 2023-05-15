@@ -1,5 +1,4 @@
-
-Write a Python regex to grab all examples of the text between the word "measure:" and the closing "}" character and add a description: 
+Write a Python regex to grab all examples of the text between the word "measure:" and the closing "}" character and add a description:
 
 Text:   measure: count_sessions_event1 {
     type: count_distinct
@@ -202,5 +201,28 @@ The answer is:   measure: average_spend_per_user {
     type: number
     sql: ${total_revenue}*1.0/nullif(${users.count},0) ;;
     value_format_name: usd
-    description: "Custom Measure: total_revenue / users.count, formatted in usd"
+    description: "Divides total_revenue by users.count, formatted in usd"
+  }
+
+Text:   measure: custom_average_revenue {
+    type: average
+    sql: ${total_revenue} / 100 ;;
+    value_format_name: usd
+  }
+The answer is:   measure: custom_average_revenue {
+    type: average
+    sql: ${total_revenue} / 100 ;;
+    value_format_name: usd
+    description: "Average of total revenue, divides 100, formatted in usd
+  }
+
+Text:   measure: duration_per_bike {
+    type: number
+    sql: ${custom_revenue} / ${number_of_customers} ;;
+    value_format_name: decimal_2
+  }
+The answer is:   measure: duration_per_bike {
+    type: number
+    sql: ${custom_revenue} / ${number_of_customers} ;;
+    description: "Divides custom_revenue by number_of_customers, formatted to 2 decimal places" 
   }
