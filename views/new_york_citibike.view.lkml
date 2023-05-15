@@ -4,37 +4,12 @@ view: new_york_citibike {
   # to be used for all fields in this view.
   sql_table_name: `ryancustomerhosted.testing.new_york_citibike`
     ;;
-  # No primary key is defined for this view. In order to join this view in an Explore,
-  # define primary_key: yes on a dimension that has no repeated values.
-
-  # Here's what a typical dimension looks like in LookML.
-  # A dimension is a groupable field that can be used to filter query results.
-  # This dimension will be called "Bikeid" in Explore.
 
   dimension: bikeid {
     type: number
     value_format_name: id
     sql: ${TABLE}.bikeid ;;
     primary_key: yes
-  }
-
-  dimension: birth_year {
-    type: number
-    sql: ${TABLE}.birth_year ;;
-  }
-
-  # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
-  # measures for this dimension, but you can also add measures of many different aggregates.
-  # Click on the type parameter to see all the options in the Quick Help panel on the right.
-
-  measure: total_birth_year {
-    type: sum
-    sql: ${birth_year} ;;
-  }
-
-  measure: average_birth_year {
-    type: average
-    sql: ${birth_year} ;;
   }
 
   dimension: end_station_id {
