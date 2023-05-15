@@ -1,0 +1,206 @@
+
+Write a Python regex to grab all examples of the text between the word "measure:" and the closing "}" character and add a description: 
+
+Text:   measure: count_sessions_event1 {
+    type: count_distinct
+    sql: ${session_id} ;;
+    filters: {
+      field: event1_time
+      value: "NOT NULL"
+    }
+  }
+The answer is:   measure: count_sessions_event1 {
+    type: count_distinct
+    sql: ${session_id} ;;
+    filters: {
+      field: event1_time
+      value: "NOT NULL"
+    }
+    description: "Count distinct of the session_id, filters where event1_time is not null"
+  }
+
+Text:   measure: count_sessions_event12 {
+    type: count_distinct
+    sql: ${session_id} ;;
+    filters: {
+      field: event1_time
+      value: "NOT NULL"
+    }
+    filters: {
+      field: event2_time
+      value: "NOT NULL"
+    }
+    filters: {
+      field: event1_before_event2
+      value: "yes"
+    }
+  }
+The answer is:   measure: count_sessions_event12 {
+    type: count_distinct
+    sql: ${session_id} ;;
+    filters: {
+      field: event1_time
+      value: "NOT NULL"
+    }
+    filters: {
+      field: event2_time
+      value: "NOT NULL"
+    }
+    filters: {
+      field: event1_before_event2
+      value: "yes"
+    }
+    description: "Count distinct of the session_id, filters for where the event1_time is not null and event2_time is not null and event_1_before_event2 equals \'Yes\'"
+  }
+
+Text: dimension: example_date {
+    type: date
+    sql: ${TABLE}.example_date ;;
+  }    
+
+measure: count_sessions {
+    type: count_distinct
+    sql: ${session_id} ;;
+  }
+The answer is: dimension: example_date {
+    type: date
+    sql: ${TABLE}.example_date ;;
+  }    
+
+measure: count_sessions {
+    type: count_distinct
+    sql: ${session_id} ;;
+    description: "Count distinct of the session_id"
+  }
+
+Text: dimension: cost {
+    type: number
+    sql: ${TABLE}.cost ;;
+  }  
+
+measure: total_cost {
+    type: sum
+    sql: ${cost} ;;
+    value_format_name: usd
+  }
+The answer is: dimension: cost {
+    type: number
+    sql: ${TABLE}.cost ;;
+  }  
+  
+measure: total_cost {
+    type: sum
+    sql: ${cost} ;;
+    value_format_name: usd
+    description: "Sum of cost, values are formatting in usd"
+  }
+
+Text: dimension: color {
+    type: string
+    sql: ${TABLE}.color ;;
+  }    
+
+dimension: flag {
+    type: string
+    sql: ${TABLE}.flag ;;
+  }    
+
+measure: average_sequence_number {
+    type: average
+    sql: ${sequence_number} ;;
+  }
+The answer is: dimension: color {
+    type: string
+    sql: ${TABLE}.color ;;
+  }    
+
+dimension: flag {
+    type: string
+    sql: ${TABLE}.flag ;;
+  }    
+  
+measure: average_sequence_number {
+    type: average
+    sql: ${sequence_number} ;;
+    description: "Average of the sequence_number"
+  }
+
+Text:   measure: total_revenue_completed {
+    label: "Total Revenue from Completed Orders"
+    type: sum
+    value_format_name: usd
+    sql: ${sale_price} ;;
+    filters: {
+      field: status
+      value: "Complete"
+    }
+  }
+The answer is:   measure: total_revenue_completed {
+    label: "Total Revenue from Completed Orders"
+    type: sum
+    value_format_name: usd
+    sql: ${sale_price} ;;
+    filters: {
+      field: status
+      value: "Complete"
+    }
+    description: "Sum of the sale price, formatted in usd, filtered for where the status is \'Complete\'"
+  }
+
+Text:   measure: total_revenue_returned {
+    label: "Total Revenue Lost from Returns"
+    type: sum
+    value_format_name: usd
+    sql: ${sale_price} ;;
+    filters: {
+      field: returned_date
+      value: "-NULL"
+    }
+  }
+The answer is:   measure: total_revenue_returned {
+    label: "Total Revenue Lost from Returns"
+    type: sum
+    value_format_name: usd
+    sql: ${sale_price} ;;
+    filters: {
+      field: returned_date
+      value: "-NULL"
+    }
+    description: "Sum of the sale price, formatted in usd, filtered for where the returned_date is not null"
+  }
+
+Text:   measure: order_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+    drill_fields: [user_id,order_id,created_date,order_item_count,total_revenue]
+  }
+The answer is:   measure: order_count {
+    type: count_distinct
+    sql: ${order_id} ;;
+    drill_fields: [user_id,order_id,created_date,order_item_count,total_revenue]
+    description: "Count distinct of the order_id"
+  }
+
+Text:   measure: average_shipping_time {
+    type: average
+    sql: ${shipping_time} ;;
+    value_format: "0.00\\" days\\""
+  }
+The answer is:   measure: average_shipping_time {
+    type: average
+    sql: ${shipping_time} ;;
+    value_format: "0.00\\" days\\""
+    description: "Average of shipping_time, formatted to 2 decimals with \'days\' added"
+  }
+
+Text:   measure: average_spend_per_user {
+    type: number
+    sql: ${total_revenue}*1.0/nullif(${users.count},0) ;;
+    value_format_name: usd
+  }
+The answer is:   measure: average_spend_per_user {
+    type: number
+    sql: ${total_revenue}*1.0/nullif(${users.count},0) ;;
+    value_format_name: usd
+    description: "Custom Measure: total_revenue / users.count, formatted in usd"
+  }
