@@ -1,5 +1,5 @@
 # The name of this view in Looker is "New York Citibike"
-view: new_york_citibike {
+view: original_new_york_citibike {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
   sql_table_name: `ryancustomerhosted.testing.new_york_citibike`
